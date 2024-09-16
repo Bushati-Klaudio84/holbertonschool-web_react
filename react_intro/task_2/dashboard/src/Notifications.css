@@ -1,14 +1,10 @@
 .Notifications {
-    border: dotted;
-    border-color: crimson;
-    padding-left: 1rem;
-    margin-bottom: 1rem;
+    border: 3px solid #e14852;
+    padding: 1em;
 }
-
-[data-priority="default"] {
+li[data-priority="default"] {
     color: blue;
 }
-  
-[data-priority="urgent"] {
-color: red;
+li[data-priority="urgent"] {
+  color: red;
 }
