@@ -1,33 +1,37 @@
-:root {
-  --principal-color: #e14852;
+.App {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .App-header {
   display: flex;
-  color: var(--principal-color);
-  align-items: center;
-  border-bottom: 4px solid var(--principal-color);
+  border-bottom: 5px #E0354B solid;
+}
 
+.App-header h1 {
+  color: #E0354B;
+  align-self: center;
+  font-weight: bold;
 }
 
 .App-header img {
-  width: 200px;
-  height: 200px;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  width: 300px;
 }
 
 .App-body {
-  margin: 50px 0 350px 60px;
+  margin: 50px;
+}
+
+.App-body input {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .App-footer {
+  width: 100%;
   display: flex;
   justify-content: center;
-  border-top: 4px solid var(--principal-color);
+  position: fixed;
+  bottom: 0;
+  border-top: 5px #E0354B solid;
   font-style: italic;
-}
-
-input, label, button {
-  margin-left: 10px;
 }

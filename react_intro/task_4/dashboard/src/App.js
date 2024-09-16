@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import logo from './holberton-logo.jpg';
+import { getFooterCopy, getFullYear } from './util';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <img src={logo} className="logo" alt="Holberton logo" />
+        <h1>School dashboard</h1>
       </header>
+      <div className="App-body">
+        <p>Login to access the full dashboard</p>
+        <label htmlFor="email">Email: </label>
+        <input type="email" name="email" id="email"/>
+        <label htmlFor="password">Password: </label>
+        <input type="password" name="password" id="password"/>
+        <button type="button">OK</button>
+      </div>
+      <footer className="App-footer">
+        <p>Copyright {getFullYear()} - {getFooterCopy(true)}</p>
+      </footer>
     </div>
   );
 }
