@@ -1,50 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 class NotificationItem extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    const { markAsRead, id } = this.props;
-    if (markAsRead) {
-      markAsRead(id);
-    }
-  }
-
   render() {
-    const { type, html, value } = this.props;
+    let { id, type, value, html, markAsRead } = this.props;
 
     return (
-      <li
-        data-notification-type={type}
-        dangerouslySetInnerHTML={html}
-        onClick={this.handleClick}
-        onKeyPress={this.handleClick}
-        role="button"
-        tabIndex={0}
-      >
-        {html ? null : value}
-      </li>
+      <Fragment>
+        {html !== undefined && (
+          <li
+            onClick={() => markAsRead(id)}
+            data-priority-type={type}
+            dangerouslySetInnerHTML={html}
+          />
+        )}
+        {html === undefined && (
+          <li onClick={() => markAsRead(id)} data-priority-type={type}>
+            {value}
+          </li>
+        )}
+      </Fragment>
     );
   }
 }
 
 NotificationItem.propTypes = {
-  type: PropTypes.string,
   html: PropTypes.shape({
-    __html: PropTypes.string,
+    __html: PropTypes.string
   }),
+  type: PropTypes.string.isRequired,
   value: PropTypes.string,
-  markAsRead: PropTypes.func,
-  id: PropTypes.number.isRequired,
+  markAsRead: PropTypes.func
 };
 
 NotificationItem.defaultProps = {
-  type: 'default',
-  markAsRead: null,
+  type: 'default'
 };
 
 export default NotificationItem;

@@ -4,10 +4,11 @@ import { getFooterCopy, getFullYear } from '../utils/utils';
 
 function Footer() {
   return (
-    <footer className="App-footer">
-        <p>{getFooterCopy(true)}</p>
-        <p>Copyright {getFullYear()} - Holberton School</p>
-    </footer>
+    <div className="App-footer">
+      <p>
+        Copyright {getFullYear()} - {getFooterCopy()}
+      </p>
+    </div>
   );
 }
 
