@@ -12,6 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
   }
+/* eslint-disable */
 
   render() {
     const { isLoggedIn } = this.props;

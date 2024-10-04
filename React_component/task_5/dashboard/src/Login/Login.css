@@ -1,7 +1,8 @@
-.Login-body {
-  padding: 36px 24px;
-}
-
-.Login-body input {
-  margin: 0 16px 0 8px;
-}
+.App-body {
+    margin: 50px;
+  }
+  
+  .App-body input {
+    margin-left: 20px;
+    margin-right: 20px;
+  }

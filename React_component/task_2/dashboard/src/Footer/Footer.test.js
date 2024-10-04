@@ -1,23 +1,19 @@
-import React from 'react';
-import { expect } from 'chai';
-import Adapter from 'enzyme-adapter-react-16';
-import { shallow, configure } from 'enzyme';
 import Footer from './Footer';
+import { shallow } from 'enzyme';
+import React from 'react';
 
-configure({ adapter: new Adapter() });
-
-describe('Testing the <Footer /> Component', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(<Footer shouldRender />);
-  });
-
-  it('<Footer /> is rendered without crashing', () => {
-    expect(wrapper.render()).to.not.be.an('undefined');
-  });
-
-  it('<Footer /> renders at least the text: Copyright', () => {
-    expect(wrapper.children('p').html()).to.include('Copyright');
-  });
+describe('Testing <Footer /> component', () => {
+    describe('Footer renders without crashing', () => {
+        it ('should render Footer withour crashing', () => {
+            const wrapper = shallow(<Footer />);
+            expect(wrapper.exists()).toEqual(true);
+        });
+    });
+    describe('Footer renders a p element', () => {
+        it ('should render a p element in Footer component', () => {
+            const wrapper =  shallow(<Footer />);
+            wrapper.update();
+            expect(wrapper.find('p').text()).toEqual('Copyright 2023 - Holberton School');
+        });
+    });
 });

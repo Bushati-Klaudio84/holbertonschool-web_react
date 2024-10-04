@@ -1,1 +1,1 @@
-README per react-component 
+# holbertonschool-web_react

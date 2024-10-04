@@ -1,11 +1,20 @@
-.App-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  /* border-bottom: 3px solid var(--holberton-red); */
-}
-
-.App-header h1 {
-  margin: auto auto auto 0;
-  color: var(--holberton-red);
-}
+.App {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .App-header {
+    display: flex;
+    border-bottom: 5px #E0354B solid;
+  }
+  
+  .App-header h1 {
+    color: #E0354B;
+    align-self: center;
+    font-weight: bold;
+  }
+  
+  .App-header img {
+    width: 300px;
+  }
+  
+  
