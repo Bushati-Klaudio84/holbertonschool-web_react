@@ -1,102 +1,90 @@
-import React, { Component } from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import React, { Component, Fragment } from 'react';
+import { StyleSheet, css, } from 'aphrodite';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    // Initialiser l'état local avec les valeurs par défaut
     this.state = {
       isLoggedIn: false,
+      enableSubmit: false,
       email: '',
       password: '',
-      enableSubmit: false,
     };
-
-    // Lier les méthodes
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
-  }
+  };
 
-  // Fonction pour gérer la soumission du formulaire
-  handleLoginSubmit(event) {
-    event.preventDefault();
-    this.setState({ isLoggedIn: true });
-  }
+  handleLoginSubmit() {
+    this.setState({
+      isLoggedIn: true,
+    });
+  };
 
-  // Fonction pour gérer le changement dans l'input email
   handleChangeEmail(event) {
-    const email = event.target.value;
-    this.setState({ email }, this.verifyInputs);
-  }
+    let pw = this.state.password;
+    this.setState({
+      [event.target.name]: event.target.value,
+      enableSubmit: ((event.target.value.length > 0) && (pw.length > 0)) ? true : false,
+    });
+  };
 
-  // Fonction pour gérer le changement dans l'input password
   handleChangePassword(event) {
-    const password = event.target.value;
-    this.setState({ password }, this.verifyInputs);
-  }
-
-  // Fonction pour vérifier si les champs email et password ne sont pas vides
-  verifyInputs() {
-    const { email, password } = this.state;
-    if (email !== '' && password !== '') {
-      this.setState({ enableSubmit: true });
-    } else {
-      this.setState({ enableSubmit: false });
-    }
-  }
+    let email = this.state.email;
+    this.setState({
+      [event.target.name]: event.target.value,
+      enableSubmit: ((event.target.value.length > 0) && (email.length > 0)) ? true : false,
+    });
+  };
 
   render() {
-    const { email, password, enableSubmit } = this.state;
-
     return (
-      <React.Fragment>
-        <div className={css(styles.loginForm)}>
-          <h2>Login</h2>
-          {/* Formulaire contrôlé */}
+      <Fragment>
+        <div className={css(styles.loginBody)}>
+          <p>
+            Login to access the full dashboard
+          </p>
           <form onSubmit={this.handleLoginSubmit}>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email} // Composant contrôlé
-              onChange={this.handleChangeEmail}
-              required
-            />
-
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password} // Composant contrôlé
-              onChange={this.handleChangePassword}
-              required
-            />
-
-            {/* Le bouton est désactivé si les champs ne sont pas remplis */}
-            <input type="submit" value="OK" disabled={!enableSubmit} />
+            <div className={css(styles.inputContainer)}>
+              <label htmlFor="email">Email: </label>
+              <input className={css(styles.input)} type="email" id="email" name="email" onChange={this.handleChangeEmail} />
+            </div>
+            <div className={css(styles.inputContainer)}>
+              <label htmlFor="password">Password: </label>
+              <input className={css(styles.input)} type="password" id="password" name="password" onChange={this.handleChangePassword} />
+            </div>
+            <div className={css(styles.inputContainer)}>
+              <input type="submit" value="submit" disabled={!this.state.enableSubmit} />
+            </div>
           </form>
         </div>
-      </React.Fragment>
+      </Fragment>
     );
   }
-}
+};
 
-// Styles avec Aphrodite
 const styles = StyleSheet.create({
-  loginForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
+  loginBody: {
+    padding: '36px 24px',
+  },
+  input: {
+    margin: '0 16px 0 8px',
+  },
+  inputContainer: {
+    display: 'inline',
     '@media (max-width: 900px)': {
-      gap: '15px',
-    },
-    '@media (min-width: 900px)': {
-      gap: '20px',
+      display: 'block',
     },
   },
 });
+
+// const styles = StyleSheet.create({
+// 	loginBody: {
+// 		padding: '36px 24px',
+// 	},
+// 	input: {
+// 		margin: '0 16px 0 8px',
+// 	},
+// });
 
 export default Login;

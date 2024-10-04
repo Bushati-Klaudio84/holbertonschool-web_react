@@ -1,19 +1,22 @@
-/**
- * Returns the current year.
- * @returns {number} - The current year.
- */
-export function getFullYear() {
-return new Date().getFullYear();
-}
+const getFullYear = () => {
+  let current_year = new Date().getFullYear();
+  return current_year;
+};
 
-/**
- * Returns a footer message based on the value of isIndex.
- * @param {boolean} isIndex - If true, returns "Holberton School". Otherwise, returns "Holberton School main dashboard".
- * @returns {string} - The footer message.
- */
-export function getFooterCopy(isIndex) {
-return isIndex ? 'Holberton School' : 'Holberton School main dashboard';
-}
-export function getLatestNotification() {
+const getFooterCopy = (isIndex) => {
+  if (isIndex === true) {
+    return 'Holberton School';
+  } else {
+    return 'Holberton School main dashboard';
+  }
+};
+
+const getLatestNotification = () => {
   return '<strong>Urgent requirement</strong> - complete by EOD';
-}
+};
+
+module.exports = {
+  getFooterCopy,
+  getFullYear,
+  getLatestNotification
+};

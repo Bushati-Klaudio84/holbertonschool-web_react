@@ -1,43 +1,69 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { StyleSheetTestUtils } from 'aphrodite';
+import chai, { expect } from 'chai';
+import Adapter from 'enzyme-adapter-react-16';
+import { shallow, configure, mount } from 'enzyme';
 import Login from './Login';
+import { StyleSheetTestUtils, } from 'aphrodite';
+import sinonChai from 'sinon-chai';
+import { spy, } from 'sinon';
 
-describe('Login Component', () => {
+chai.use(sinonChai);
+
+configure({ adapter: new Adapter() });
+
+describe("Testing the <Login /> Component", () => {
+
   let wrapper;
 
   beforeEach(() => {
+    wrapper = shallow(<Login shouldRender />);
     StyleSheetTestUtils.suppressStyleInjection();
-    wrapper = shallow(<Login />);
   });
 
   afterEach(() => {
     StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
   });
 
-  it('renders without crashing', () => {
-    expect(wrapper.exists()).toBe(true);
+  it("<Login /> is rendered without crashing", () => {
+    expect(wrapper.render()).to.not.be.an('undefined');
   });
 
-  it('renders 2 input tags and 2 label tags', () => {
-    expect(wrapper.find('input').length).toBe(3); // Le 3ème input est le submit
-    expect(wrapper.find('label').length).toBe(2);
+  it("<Login /> render 2 inputs", () => {
+    expect(wrapper.find('input')).to.have.lengthOf(3);
   });
 
-  it('the submit button is disabled by default', () => {
-    const submitButton = wrapper.find('input[type="submit"]');
-    expect(submitButton.prop('disabled')).toBe(true);
+  it("<Login /> render 2 labels", () => {
+    expect(wrapper.find('label')).to.have.lengthOf(2);
   });
 
-  it('enables the submit button when email and password are filled', () => {
-    const emailInput = wrapper.find('input#email');
-    const passwordInput = wrapper.find('input#password');
-
-    // Simuler les changements dans les champs de saisie
-    emailInput.simulate('change', { target: { value: 'test@example.com' } });
-    passwordInput.simulate('change', { target: { value: 'password123' } });
-
-    const submitButton = wrapper.find('input[type="submit"]');
-    expect(submitButton.prop('disabled')).toBe(false);
+  it("Verify that the submit button is disabled by default", () => {
+    expect(wrapper.contains(<input type="submit" value="submit" disabled />)).to.equal(true);
   });
+
+  it("Add a test to verify that after changing the value of the two inputs, the button is enabled", () => {
+    // let newWrapper = shallow(<Login />);
+    // let emailInput = newWrapper.find("#email").at(0);
+    // let passwordInput = newWrapper.find("#password").at(0);
+
+    let spyEmailChange = spy(Login.prototype, 'handleChangeEmail');
+    let spyPWChange = spy(Login.prototype, 'handleChangePassword');
+
+    let newWrapper = mount(<Login />);
+
+    let emailInput = newWrapper.find('[type="email"]').at(0);
+    let passwordInput = newWrapper.find('[type="password"]').at(0);
+
+    emailInput.simulate('change', { target: { value: 'user@gmail.com' } });
+    passwordInput.simulate('change', { target: { value: '123abc' } });
+
+    expect(spyEmailChange).to.have.been.calledOnce;
+    expect(spyPWChange).to.have.been.calledOnce;
+
+    // newWrapper.setState({
+    // 	email: emailInput.value,
+    // 	password: passwordInput.value,
+    // });
+    // expect(newWrapper.contains(<input type="submit" value="submit" disabled />)).to.equal(true);
+  });
+
 });

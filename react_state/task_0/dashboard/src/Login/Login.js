@@ -1,33 +1,53 @@
-import React from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import React, { Component, Fragment } from 'react';
+import { StyleSheet, css, } from 'aphrodite';
 
-function Login() {
-  return (
-    <React.Fragment>
-      <div className={css(styles.loginForm)}>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" />
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" />
-        <button type="button">OK</button>
-      </div>
-    </React.Fragment>
-  );
-}
+class Login extends Component {
+  render() {
+    return (
+      <Fragment>
+        <div className={css(styles.loginBody)}>
+          <p>
+            Login to access the full dashboard
+          </p>
+          <div className={css(styles.inputContainer)}>
+            <label htmlFor="email">Email: </label>
+            <input className={css(styles.input)} type="email" id="email" name="email" />
+          </div>
+          <div className={css(styles.inputContainer)}>
+            <label htmlFor="password">Password: </label>
+            <input className={css(styles.input)} type="password" id="password" name="password" />
+          </div>
+          <div className={css(styles.inputContainer)}>
+            <button>OK</button>
+          </div>
+        </div>
+      </Fragment>
+    );
+  }
+};
 
-// Définir les styles avec Aphrodite
 const styles = StyleSheet.create({
-  loginForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
+  loginBody: {
+    padding: '36px 24px',
+  },
+  input: {
+    margin: '0 16px 0 8px',
+  },
+  inputContainer: {
+    display: 'inline',
     '@media (max-width: 900px)': {
-      gap: '15px', // Ajuster l'écart pour les petits écrans si nécessaire
-    },
-    '@media (min-width: 900px)': {
-      gap: '20px', // Ajuster l'écart pour les grands écrans si nécessaire
+      display: 'block',
     },
   },
 });
+
+// const styles = StyleSheet.create({
+// 	loginBody: {
+// 		padding: '36px 24px',
+// 	},
+// 	input: {
+// 		margin: '0 16px 0 8px',
+// 	},
+// });
 
 export default Login;
